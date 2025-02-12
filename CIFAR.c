@@ -2,7 +2,7 @@
 #include "huffman.h"
 #include "png.h"
 
-int main() {
+void make_png_from_cifar_100() {
     FILE* cifar;
     errno_t error;
     error = fopen_s(&cifar, "./cifar-100-binary./train.bin", "rb");
@@ -37,13 +37,38 @@ int main() {
     fclose(cifar);
 }
 
-// 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
-// 프로그램 디버그: <F5> 키 또는 [디버그] > [디버깅 시작] 메뉴
+void make_small_c_img() {
+    unsigned char rgbs[4 * 3 * 3];
 
-// 시작을 위한 팁: 
-//   1. [솔루션 탐색기] 창을 사용하여 파일을 추가/관리합니다.
-//   2. [팀 탐색기] 창을 사용하여 소스 제어에 연결합니다.
-//   3. [출력] 창을 사용하여 빌드 출력 및 기타 메시지를 확인합니다.
-//   4. [오류 목록] 창을 사용하여 오류를 봅니다.
-//   5. [프로젝트] > [새 항목 추가]로 이동하여 새 코드 파일을 만들거나, [프로젝트] > [기존 항목 추가]로 이동하여 기존 코드 파일을 프로젝트에 추가합니다.
-//   6. 나중에 이 프로젝트를 다시 열려면 [파일] > [열기] > [프로젝트]로 이동하고 .sln 파일을 선택합니다.
+    unsigned char light_red[3] = { 0x55, 0x00, 0x00 };
+    unsigned char white[3] = { 0xff, 0xff, 0xff };
+
+    unsigned char c_pattern[4][3] = {
+        {0, 1, 1},
+        {1, 0, 0},
+        {1, 0, 0},
+        {0, 1, 1}
+    };
+
+    int pos = 0;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+            unsigned char* color;
+            if (c_pattern[i][j] == 0) color = white;
+            else color = light_red;
+            for (int n = 0; n < 3; n++) rgbs[pos++] = color[n];
+        }
+    }
+
+    rgbs[0] = 255;
+    rgbs[1] = 0;
+    rgbs[2] = 0;
+
+    for (int i = 0; i < 4 * 3 * 3; i++)
+        printf("%d ", rgbs[i]);
+
+    png_save("test.png", 3, 4, rgbs);
+}
+int main() {
+    make_small_c_img();
+}
