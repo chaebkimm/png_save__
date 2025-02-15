@@ -89,3 +89,4 @@ CIFAR/x64/Debug/CIFAR.tlog/link.write.1.tlog
 cifar-100-binary/test.bin
 cifar-100-binary/small.bin
 CIFAR.sln
+/.vs/CIFAR
