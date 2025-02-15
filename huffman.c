@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 static unsigned char* buf = NULL;
-static int bits_total = 0;
-static int bit_pos = 0;
-static int index = 0;
+static unsigned int bits_total = 0;
+static unsigned int bit_pos = 0;
+static unsigned int index = 0;
 
 unsigned int huffman_bits(unsigned int lit_value) {
     if (lit_value < 144) return 8;

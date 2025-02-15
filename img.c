@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "png.h"
 
-void make_png_from_cifar_100() {
+int make_png_from_cifar_100() {
     FILE* cifar;
     errno_t error;
     error = fopen_s(&cifar, "./cifar-100-binary./train.bin", "rb");
@@ -34,6 +34,7 @@ void make_png_from_cifar_100() {
     png_save("test.png", 32, 32, rgbs);
 
     fclose(cifar);
+    return 0;
 }
 
 void make_small_c_img() {
