@@ -128,17 +128,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="huffman.c" />
+    <ClCompile Include="ico_writer.c" />
     <ClCompile Include="img.c" />
+    <ClCompile Include="main.c" />
     <ClCompile Include="png.c" />
+    <ClCompile Include="ico_reader.c" />
+    <ClCompile Include="png_reader.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cifar-100-binary\train.bin" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="test.png" />
+    <Image Include="calculator.ico" />
+    <Image Include="calculator.png" />
+    <Image Include="ico1__.bmp" />
+    <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="huffman.h" />
+    <ClInclude Include="ico.h" />
     <ClInclude Include="png.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
