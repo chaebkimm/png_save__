@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="huffman.c" />
     <ClCompile Include="img.c" />
+    <ClCompile Include="main.c" />
     <ClCompile Include="png.c" />
   </ItemGroup>
   <ItemGroup>

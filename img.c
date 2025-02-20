@@ -1,5 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "png.h"
+
+static unsigned char* buffer = NULL;
+static unsigned int pos = 0;
+static unsigned int buffer_size = 0;
 
 int make_png_from_cifar_100() {
     FILE* cifar;
@@ -101,4 +106,48 @@ void pixel(int red, int green, int blue) {
     rgbs[2] = blue & 0xff;
 
     png_save("test.png", 1, 1, rgbs);
+}
+
+void grow_if_needed() {
+    if (!buffer) {
+        buffer_size = 1024;
+        buffer = realloc(buffer, buffer_size);
+    }
+    while (pos + 2 >= buffer_size) {
+        buffer_size *= 2;
+        buffer = realloc(buffer, buffer_size);
+    }
+}
+
+void add_pixel(int red, int green, int blue) {
+
+    grow_if_needed();
+
+    buffer[pos++] = red;
+    buffer[pos++] = green;
+    buffer[pos++] = blue;
+}
+
+void grow_if_less_than_size(int size) {
+    if (!buffer) {
+        buffer_size = 1024;
+        buffer = realloc(buffer, buffer_size);
+    }
+    while (size > buffer_size) {
+        buffer_size *= 2;
+        buffer = realloc(buffer, buffer_size);
+    }
+}
+
+void make_png(int width, int height) {
+
+    int size = width * height * 3;
+
+    grow_if_less_than_size(size);
+
+    for (int i = pos; i < size; i++) {
+        buffer[i] = 255;
+    }
+
+    png_save("test.png", width, height, buffer);
 }
